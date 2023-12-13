@@ -26,16 +26,20 @@
 			}
 			#
 			#Obtencio del resultat i mostrant el resultat
-			$sub = new IPv4\SubnetCalculator($_GET["op1"], $_GET["op2"]);
-			$network= $sub->getNetworkPortion();
-			$broadcastAddress = $sub->getBroadcastAddress();
-			$addressableHostRange = $sub->getAddressableHostRange();
-			$numberHosts = $sub->getNumberAddressableHosts(); 
-			echo "<p>Adreça IP de l'equip: ".$_GET["op1"]."/".$_GET["op2"]."</p>";
-			echo "<p>Adreça IP de subxarxa: $network/".$_GET["op2"]."</p>";
-			echo "<p>Adreça IP de broadcast: $broadcastAddress</p>";
-			echo "<p>Marge d'adreces de host: Des de $addressableHostRange[0] a $addressableHostRange[1]</p>";
-			echo "<p>Quantitat equips dins de la subxarxa: $numberHosts</p>";						
+			try{
+				$sub = new IPv4\SubnetCalculator($_GET["op1"], $_GET["op2"]);
+				$network= $sub->getNetworkPortion();
+				$broadcastAddress = $sub->getBroadcastAddress();
+				$addressableHostRange = $sub->getAddressableHostRange();
+				$numberHosts = $sub->getNumberAddressableHosts(); 
+				echo "<p>Adreça IP de l'equip: ".$_GET["op1"]."/".$_GET["op2"]."</p>";
+				echo "<p>Adreça IP de subxarxa: $network/".$_GET["op2"]."</p>";
+				echo "<p>Adreça IP de broadcast: $broadcastAddress</p>";
+				echo "<p>Marge d'adreces de host: Des de $addressableHostRange[0] a $addressableHostRange[1]</p>";
+				echo "<p>Quantitat equips dins de la subxarxa: $numberHosts</p>";
+			} catch (Exception $e){
+				echo "<p>Error: ".$e->getMessage()."</p>";
+			}						
 		?>	
 		<a href="index.php">Torna a l'inici</a>	
 	</body>
